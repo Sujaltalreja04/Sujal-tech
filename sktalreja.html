@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sujal.T — Digital Garden</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg: #070707;
+    --surface: #101112;
+    --surface-2: #151617;
+    --border: rgba(255,255,255,.13);
+    --text: #f2f3f5;
+    --muted: #8c919b;
+    --blue: #4da3ff;
+    --purple: #a878ff;
+    --green: #35df91;
+    --red: #ff637d;
+    --orange: #ffad42;
+    --max: 1280px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at 20% 10%, rgba(77,163,255,.06), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(168,120,255,.04), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .025;
+    background-image:
+        linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+/* ---------------- NAV ---------------- */
+
+.nav-wrap {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100% - 32px), 1240px);
+    z-index: 1000;
+}
+
+nav {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: rgba(15,15,15,.78);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.logo {
+    font-family: "Space Grotesk";
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-right: 38px;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #737984;
+}
+
+.nav-links {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.nav-links a {
+    color: #858b96;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 13px;
+    border-radius: 10px;
+    transition: .25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+    background: rgba(255,255,255,.07);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.04);
+    color: #aaa;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.icon-btn:hover {
+    background: rgba(255,255,255,.1);
+    color: white;
+}
+
+.menu-btn {
+    display: none;
+}
+
+/* ---------------- LAYOUT ---------------- */
+
+.container {
+    width: min(calc(100% - 40px), var(--max));
+    margin: auto;
+}
+
+section {
+    scroll-margin-top: 110px;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+    min-height: 100vh;
+    padding-top: 150px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.035);
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    color: #c7cbd1;
+    margin-bottom: 25px;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+}
+
+.hero h1 {
+    font-family: "Space Grotesk";
+    font-size: clamp(52px, 6vw, 86px);
+    line-height: .94;
+    letter-spacing: -5px;
+    max-width: 650px;
+}
+
+.hero h1 span {
+    color: #7d838e;
+}
+
+.hero-description {
+    max-width: 570px;
+    margin-top: 25px;
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 13px 22px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.035);
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.08);
+}
+
+/* Hero profile card */
+
+.hero-card {
+    min-height: 310px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 35px;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(77,163,255,.07), transparent 30%),
+        rgba(255,255,255,.025);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-card::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    right: -100px;
+    bottom: -100px;
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.profile-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    object-fit: cover;
+    background: linear-gradient(135deg,#252525,#111);
+}
+
+.profile-meta {
+    font-size: 11px;
+    color: #777e88;
+    letter-spacing: 1px;
+}
+
+.hero-quote {
+    font-family: "Space Grotesk";
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 13px;
+}
+
+.hero-card p {
+    color: var(--muted);
+    max-width: 510px;
+}
+
+/* ---------------- SECTION HEADER ---------------- */
+
+.section {
+    padding: 90px 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-family: "Space Grotesk";
+    font-size: 25px;
+    letter-spacing: -1px;
+}
+
+.section-subtitle {
+    color: #666d77;
+    font-size: 13px;
+}
+
+/* ---------------- EXPLORE ---------------- */
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 14px;
+}
+
+.card {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: rgba(255,255,255,.025);
+    transition: .3s;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,.25);
+    background: rgba(255,255,255,.045);
+}
+
+.explore-card {
+    min-height: 150px;
+    padding: 22px;
+}
+
+.card-icon {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-family: "Space Grotesk";
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #858b95;
+    font-size: 12px;
+}
+
+.card-arrow {
+    position: absolute;
+    right: 17px;
+    bottom: 17px;
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    color: #aaa;
+}
+
+.blue { color: var(--blue); }
+.purple { color: var(--purple); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+
+/* ---------------- DASHBOARD GRID ---------------- */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr .65fr;
+    gap: 14px;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: rgba(255,255,255,.025);
+    padding: 20px;
+}
+
+.panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 5px;
+}
+
+.panel-title h3 {
+    font-family: "Space Grotesk";
+    font-size: 15px;
+}
+
+.panel-title a {
+    color: #707781;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.writing {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.writing:last-child {
+    border: none;
+}
+
+.writing-img {
+    width: 55px;
+    height: 42px;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#182b43,#090b0d);
+    flex-shrink: 0;
+}
+
+.writing-info {
+    flex: 1;
+}
+
+.writing-title {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.meta {
+    color: #6d737d;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.writing-arrow {
+    color: #666;
+}
+
+/* ---------------- TIMELINE ---------------- */
+
+.timeline {
+    position: relative;
+    padding: 8px 0 0 25px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 15px;
+    bottom: 15px;
+    width: 1px;
+    background: #333;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 10px 0 20px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -23px;
+    top: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 10px rgba(77,163,255,.5);
+}
+
+.timeline-year {
+    color: var(--blue);
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+
+.timeline-title {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.timeline-text {
+    color: #6f757e;
+    font-size: 11px;
+}
+
+/* ---------------- CURRENTLY ---------------- */
+
+.current-list {
+    list-style: none;
+}
+
+.current-list li {
+    display: flex;
+    gap: 10px;
+    padding: 9px 0;
+    color: #a3a8b0;
+    font-size: 11px;
+}
+
+.current-list li::before {
+    content: "●";
+    color: var(--green);
+}
+
+.now-playing {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 15px;
+}
+
+.now-playing small {
+    color: #737983;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.album {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: linear-gradient(135deg,#243d54,#111);
+}
+
+.play {
+    margin-left: auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: white;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.quote {
+    margin: 10px 0 80px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px 30px;
+    color: #c5c8ce;
+    font-family: "Space Grotesk";
+    font-size: 16px;
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quote span {
+    color: #6d737c;
+    font-size: 11px;
+    font-style: normal;
+}
+
+/* ---------------- SEARCH ---------------- */
+
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(12px);
+    display: none;
+    place-items: start center;
+    padding-top: 130px;
+}
+
+.search-overlay.open {
+    display: grid;
+}
+
+.search-box {
+    width: min(600px,calc(100% - 30px));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #111;
+    padding: 18px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: white;
+    font-size: 18px;
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media(max-width: 1000px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 130px;
+    }
+
+    .explore-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .container {
+        width: min(calc(100% - 24px), var(--max));
+    }
+
+    .nav-wrap {
+        width: calc(100% - 20px);
+    }
+
+    nav {
+        height: 56px;
+    }
+
+    .logo {
+        font-size: 18px;
+        margin-right: auto;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 115px;
+        padding-bottom: 60px;
+    }
+
+    .hero h1 {
+        font-size: 50px;
+        letter-spacing: -3px;
+    }
+
+    .hero-card {
+        padding: 24px;
+    }
+
+    .explore-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        text-align: center;
+    }
+
+    .section {
+        padding: 55px 0;
+    }
+
+    .section-header {
+        align-items: start;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .quote {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+<nav>
+    <div class="logo">SUJAL<span>.T</span></div>
+
+    <div class="nav-links">
+        <a href="#home" class="active">HOME</a>
+        <a href="#journey">JOURNEY</a>
+        <a href="#tech">TECH</a>
+        <a href="#knowledge">KNOWLEDGE</a>
+        <a href="#life">LIFE</a>
+        <a href="#notes">NOTES</a>
+        <a href="#resources">RESOURCES</a>
+        <a href="#now">NOW</a>
+    </div>
+
+    <div class="nav-actions">
+        <button class="icon-btn" id="searchBtn">⌕</button>
+        <button class="icon-btn menu-btn" id="menuBtn">☰</button>
+    </div>
+</nav>
+</div>
+
+
+<main>
+
+<!-- HERO -->
+<section class="hero container" id="home">
+
+    <div>
+        <div class="badge">
+            <span class="badge-dot"></span>
+            A DIGITAL GARDEN
+        </div>
+
+        <h1>
+            THINGS I'M<br>
+            LEARNING,<br>
+            BUILDING <span>&</span><br>
+            BECOMING.
+        </h1>
+
+        <p class="hero-description">
+            A personal knowledge base documenting my journey in
+            technology, life, and everything in between.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#journey" class="btn">EXPLORE JOURNEY</a>
+            <a href="#notes" class="btn">BROWSE NOTES</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+
+        <div class="profile">
+            <img
+                class="profile-img"
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200"
+                alt="Profile"
+            >
+
+            <div class="profile-meta">
+                WRITING · LEARNING · BUILDING
+            </div>
+        </div>
+
+        <div class="hero-quote">
+            "Same mind. More depth."
+        </div>
+
+        <p>
+            This is where I document my thoughts, experiments,
+            learnings and personal growth — a raw, evolving
+            version of my journey.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE -->
+<section class="section container" id="tech">
+
+    <div class="section-header">
+        <h2 class="section-title">EXPLORE</h2>
+        <span class="section-subtitle">
+            Different parts of my journey
+        </span>
+    </div>
+
+    <div class="explore-grid">
+
+        <div class="card explore-card" onclick="location.href='#notes'">
+            <div class="card-icon blue">&lt;/&gt;</div>
+            <h3>Tech</h3>
+            <p>AI, LLMs, Engineering, Tools & Experiments</p>
+            <div class="card-arrow">→</div>
+        </div>
+
+        <div class="card explore-card" onclick="location.href='#knowledge'">
+            <div class="card-icon purple">▢</div>
+            <h3>Knowledge</h3>
+            <p>Notes, Concepts, Books & Resources</p>
+            <div class="card-arrow">→</div>
+        </div>
+
+        <div class="card explore-card" onclick="location.href='#life'">
+            <div class="card-icon red">♡</div>
+            <h3>Life</h3>
+            <p>Transformation, Habits, Fitness & Personal Growth</p>
+            <div class="card-arrow">→</div>
+        </div>
+
+        <div class="card explore-card" onclick="location.href='#journey'">
+            <div class="card-icon green">⌁</div>
+            <h3>Journey</h3>
+            <p>My Story, Career, Lessons & Reflections</p>
+            <div class="card-arrow">→</div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DASHBOARD -->
+<section class="section container" id="notes">
+
+<div class="dashboard">
+
+    <!-- WRITINGS -->
+    <div class="panel">
+
+        <div class="panel-title">
+            <h3>▤ &nbsp; RECENT WRITINGS</h3>
+            <a href="#">VIEW ALL →</a>
+        </div>
+
+        <div class="writing">
+            <div class="writing-img"></div>
+            <div class="writing-info">
+                <div class="writing-title">
+                    What I Learned Building My First RAG System
+                </div>
+                <div class="meta">
+                    AI / LLM · 3 days ago
+                </div>
+            </div>
+            <span class="writing-arrow">→</span>
+        </div>
+
+        <div class="writing">
+            <div class="writing-img"></div>
+            <div class="writing-info">
+                <div class="writing-title">
+                    30 Days of Fitness: What Actually Changed
+                </div>
+                <div class="meta">
+                    LIFE · 1 week ago
+                </div>
+            </div>
+            <span class="writing-arrow">→</span>
+        </div>
+
+        <div class="writing">
+            <div class="writing-img"></div>
+            <div class="writing-info">
+                <div class="writing-title">
+                    My Notes on System Design
+                </div>
+                <div class="meta">
+                    ENGINEERING · 2 weeks ago
+                </div>
+            </div>
+            <span class="writing-arrow">→</span>
+        </div>
+
+        <div class="writing">
+            <div class="writing-img"></div>
+            <div class="writing-info">
+                <div class="writing-title">
+                    The Person I Want to Become
+                </div>
+                <div class="meta">
+                    REFLECTION · 3 weeks ago
+                </div>
+            </div>
+            <span class="writing-arrow">→</span>
+        </div>
+
+    </div>
+
+
+    <!-- JOURNEY -->
+    <div class="panel" id="journey">
+
+        <div class="panel-title">
+            <h3>⌁ &nbsp; MY JOURNEY</h3>
+            <a href="#">VIEW TIMELINE →</a>
+        </div>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <div class="timeline-year">2025</div>
+                <div class="timeline-title">
+                    Deeper into AI & LLMs
+                </div>
+                <div class="timeline-text">
+                    Building real-world projects,
+                    exploring agents, and learning in public.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot"
+                      style="background:var(--green)"></span>
+                <div class="timeline-year"
+                     style="color:var(--green)">
+                    2024
+                </div>
+                <div class="timeline-title">
+                    Growth & Exploration
+                </div>
+                <div class="timeline-text">
+                    New skills, new challenges,
+                    new perspectives.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot"
+                      style="background:var(--purple)"></span>
+                <div class="timeline-year"
+                     style="color:var(--purple)">
+                    2023
+                </div>
+                <div class="timeline-title">
+                    Foundations
+                </div>
+                <div class="timeline-text">
+                    Learning, experimenting,
+                    and figuring things out.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot"
+                      style="background:#aaa"></span>
+                <div class="timeline-year"
+                     style="color:#aaa">
+                    BEFORE 2023
+                </div>
+                <div class="timeline-title">
+                    The Beginning
+                </div>
+                <div class="timeline-text">
+                    Where it all started...
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- CURRENTLY -->
+    <div class="panel" id="now">
+
+        <div class="panel-title">
+            <h3>● &nbsp; CURRENTLY</h3>
+        </div>
+
+        <ul class="current-list">
+
+            <li>Building AI agents & LLM applications</li>
+            <li>Improving my health and fitness</li>
+            <li>Learning system design deeply</li>
+            <li>Reading and taking notes</li>
+            <li>Documenting my journey</li>
+
+        </ul>
+
+        <div class="now-playing">
+            <small>NOW PLAYING</small>
+
+            <div class="player">
+
+                <div class="album"></div>
+
+                <div>
+                    <div style="font-size:11px">
+                        Lo-fi for Deep Work
+                    </div>
+
+                    <div class="meta">
+                        Focus · Build · Grow
+                    </div>
+                </div>
+
+                <button class="play" id="playBtn">▶</button>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- KNOWLEDGE -->
+<section class="section container" id="knowledge">
+
+    <div class="section-header">
+        <h2 class="section-title">KNOWLEDGE</h2>
+        <span class="section-subtitle">
+            Things worth remembering
+        </span>
+    </div>
+
+    <div class="explore-grid">
+
+        <div class="card explore-card">
+            <div class="card-icon blue">AI</div>
+            <h3>AI & LLMs</h3>
+            <p>Agents, RAG, models, prompting and experiments.</p>
+        </div>
+
+        <div class="card explore-card">
+            <div class="card-icon purple">⌘</div>
+            <h3>Engineering</h3>
+            <p>Architecture, backend, systems and development.</p>
+        </div>
+
+        <div class="card explore-card">
+            <div class="card-icon green">◎</div>
+            <h3>Books</h3>
+            <p>Books I've read and ideas worth keeping.</p>
+        </div>
+
+        <div class="card explore-card">
+            <div class="card-icon red">✦</div>
+            <h3>Ideas</h3>
+            <p>Random thoughts, observations and questions.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- LIFE -->
+<section class="section container" id="life">
+
+    <div class="section-header">
+        <h2 class="section-title">LIFE</h2>
+        <span class="section-subtitle">
+            Becoming a better version of myself
+        </span>
+    </div>
+
+    <div class="dashboard">
+
+        <div class="panel">
+            <h3>TRANSFORMATION</h3>
+            <p style="color:var(--muted);margin-top:12px;font-size:13px">
+                My journey with health, fitness, discipline,
+                habits and changing the way I think.
+            </p>
+        </div>
+
+        <div class="panel">
+            <h3>PERSONAL GROWTH</h3>
+            <p style="color:var(--muted);margin-top:12px;font-size:13px">
+                Lessons from failures, uncomfortable periods,
+                experiments and things I'm still figuring out.
+            </p>
+        </div>
+
+        <div class="panel">
+            <h3>HABITS</h3>
+            <p style="color:var(--muted);margin-top:12px;font-size:13px">
+                Systems I'm testing rather than pretending
+                I've figured everything out.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RESOURCES -->
+<section class="section container" id="resources">
+
+    <div class="section-header">
+        <h2 class="section-title">RESOURCES</h2>
+        <span class="section-subtitle">
+            Things I find useful
+        </span>
+    </div>
+
+    <div class="explore-grid">
+
+        <div class="card explore-card">
+            <h3>Tools</h3>
+            <p>Software, AI tools and developer utilities.</p>
+        </div>
+
+        <div class="card explore-card">
+            <h3>Courses</h3>
+            <p>Learning material worth revisiting.</p>
+        </div>
+
+        <div class="card explore-card">
+            <h3>Websites</h3>
+            <p>Interesting corners of the internet.</p>
+        </div>
+
+        <div class="card explore-card">
+            <h3>People</h3>
+            <p>Creators and engineers I learn from.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<div class="container">
+
+    <div class="quote">
+        <span>
+            “
+        </span>
+
+        <div>
+            A living record of what I'm learning,
+            building, and becoming.
+        </div>
+
+        <span>
+            — Sujal Talreja
+        </span>
+    </div>
+
+</div>
+
+</main>
+
+
+<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay">
+
+    <div class="search-box">
+
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search my knowledge base..."
+        >
+
+        <div style="margin-top:15px;color:#555;font-size:11px">
+            Press ESC to close
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ---------------- ACTIVE NAV ---------------- */
+
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const top = section.offsetTop - 160;
+
+        if (scrollY >= top) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
+
+
+/* ---------------- SEARCH ---------------- */
+
+const searchBtn = document.getElementById("searchBtn");
+const overlay = document.getElementById("searchOverlay");
+const input = document.getElementById("searchInput");
+
+searchBtn.addEventListener("click", () => {
+
+    overlay.classList.add("open");
+
+    setTimeout(() => {
+        input.focus();
+    }, 100);
+
+});
+
+overlay.addEventListener("click", e => {
+
+    if (e.target === overlay) {
+        overlay.classList.remove("open");
+    }
+
+});
+
+document.addEventListener("keydown", e => {
+
+    if (e.key === "Escape") {
+        overlay.classList.remove("open");
+    }
+
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+
+        e.preventDefault();
+
+        overlay.classList.add("open");
+        input.focus();
+
+    }
+
+});
+
+
+/* ---------------- PLAY BUTTON ---------------- */
+
+const playBtn = document.getElementById("playBtn");
+
+let playing = false;
+
+playBtn.addEventListener("click", () => {
+
+    playing = !playing;
+
+    playBtn.textContent = playing ? "❚❚" : "▶";
+
+});
+
+
+/* ---------------- CARD HOVER ---------------- */
+
+document.querySelectorAll(".card").forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.background =
+            `radial-gradient(circle at ${x}px ${y}px,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025) 45%)`;
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.background =
+            "rgba(255,255,255,.025)";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
